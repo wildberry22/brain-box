@@ -1,14 +1,19 @@
-import { Container, Box, Heading } from "@chakra-ui/react";
+import { Container, Box  } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import Header from "../components/Header";
+
 
 const RootLayout = () => {
+  const color = useSelector((state) => state.colorTheme.color).toLowerCase();
+  
   return (
-    <Box minHeight="100vh" minWidth="100vw" backgroundColor="teal.50">
-      <Box backgroundColor="teal.600" color="white">
-        <Heading padding="20px">header</Heading>
-      </Box>
+    <Box height="100vh" width="100vw" backgroundColor={color + '.50'}>
+      <Header />
+
       <Box as="main" marginTop="20px">
-        <Container maxWidth="6xl">
+        <Container maxWidth="8xl">
           <Outlet />
         </Container>
       </Box>
