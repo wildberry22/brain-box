@@ -42,7 +42,7 @@ const Header = () => {
               <Button
                 onClick={() => navigate(-1)}
                 leftIcon={<ArrowBackIcon />}
-                colorScheme="teal"
+                colorScheme={color}
                 variant="outline"
                 color={color + '.50'}
                 backgroundColor="transparent"
@@ -61,7 +61,7 @@ const Header = () => {
               {({ isActive }) => (
                 <Button
                   rightIcon={<ArrowForwardIcon />}
-                  colorScheme="teal"
+                  colorScheme={color}
                   variant="outline"
                   color={isActive ? `${color + '.700'}` : `${color + '.50'}`}
                   backgroundColor={isActive ? `${color + '.50'}` : "transparent"}
@@ -81,7 +81,7 @@ const Header = () => {
             <Button
               onClick={onOpen}
               leftIcon={<EditIcon />}
-              colorScheme="teal"
+              colorScheme={color}
               variant="outline"
               color={color + '.50'}
               backgroundColor="transparent"
