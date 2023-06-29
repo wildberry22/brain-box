@@ -54,6 +54,7 @@ const ChangeThemeModal = ({ isOpen, onClose }) => {
   // set active color in state when starting
   useEffect(() => {
     dispatch(setActiveTheme(colorThemeLC))
+    // eslint-disable-next-line
   }, [])
 
   return (

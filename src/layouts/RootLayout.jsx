@@ -9,7 +9,7 @@ const RootLayout = () => {
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();
   
   return (
-    <Box height="100vh" width="100vw" backgroundColor={color + '.50'}>
+    <Box height="100vh" width="100vw" overflow='hidden' backgroundColor={color + '.50'}>
       <Header />
 
       <Box as="main" marginTop="20px">

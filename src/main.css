@@ -1,0 +1,9 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.css-nei6wd {
+  padding: 0!important;
+}
