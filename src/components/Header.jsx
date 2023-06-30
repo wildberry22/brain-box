@@ -7,8 +7,8 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon, ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import logoImg from "../assets/logo-white.png";
@@ -26,7 +26,7 @@ const Header = () => {
       as="header"
       backgroundColor={color + '.600'}
       color="white"
-      padding="10px 0"
+      padding="5px 0"
       boxShadow="xl"
     >
       <Container maxWidth="8xl">
@@ -48,7 +48,7 @@ const Header = () => {
                 backgroundColor="transparent"
                 borderColor={color + '.50'}
                 fontWeight="500"
-                _hover={{ color: "teal.700", bg: `${color + '.50'}` }}
+                _hover={{ color: `${color + '.700'}`, bg: `${color + '.50'}` }}
                 _active={{
                   transform: "scale(0.98)",
                 }}
@@ -56,27 +56,6 @@ const Header = () => {
                 Go Back
               </Button>
             )}
-
-            <NavLink to="/statistics">
-              {({ isActive }) => (
-                <Button
-                  rightIcon={<ArrowForwardIcon />}
-                  colorScheme={color}
-                  variant="outline"
-                  color={isActive ? `${color + '.700'}` : `${color + '.50'}`}
-                  backgroundColor={isActive ? `${color + '.50'}` : "transparent"}
-                  borderColor={color + '.50'}
-                  fontWeight="500"
-                  isDisabled={isActive ? true : false}
-                  _hover={{ color: `${color + '.700'}`, bg: `${color + '.50'}` }}
-                  _active={{
-                    transform: "scale(0.98)",
-                  }}
-                >
-                  Statistics
-                </Button>
-              )}
-            </NavLink>
 
             <Button
               onClick={onOpen}

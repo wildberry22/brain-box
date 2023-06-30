@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
@@ -17,7 +18,6 @@ import { useLocalStorage } from "../../utils/useLocalSorage";
 import { setActiveTheme } from "../../redux/slices/colorThemeSlice";
 
 import RadioCard from "./RadioCard";
-import { useEffect } from "react";
 
 // available colors
 const colorScheme = [
