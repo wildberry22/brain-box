@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Text, Heading } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
-
 import { Link } from "react-router-dom";
+
 
 const NotFoundPage = () => {
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();
