@@ -1,0 +1,43 @@
+.answer-button:disabled {
+  pointer-events: none;
+  opacity: 1!important;
+}
+
+.initial {
+  background-color: white;
+}
+
+.clicked {
+  color: white!important;
+  animation-name: waiting;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+.correct {
+  background-color: #48bb78!important;
+}
+.correct .answer-button__letter {
+  background-color: #276749;
+}
+.correct .answer-button__text {
+  color: white;
+}
+
+.incorrect {
+  background-color: #e53e3e!important;
+}
+.incorrect .answer-button__letter {
+  background-color: #9B2C2C;
+}
+.incorrect .answer-button__text {
+  color: white;
+}
+
+
+
+@keyframes waiting {
+  from {background-color: #38A169;}
+  to {background-color: #E53E3E;}
+}

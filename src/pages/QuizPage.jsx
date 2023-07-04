@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 
 import QuizStartScreen from "../components/QuizStartScreen";
 import QuizScreen from "../components/QuizScreen";
+import QuizEndScreen from "../components/QuizEndScreen";
 import SkeletonScr from "../components/QuizScreen/SkeletonScr";
 
 import { useGetQuestionsQuery } from "../redux/api/quizApiSlice";
 
 const QuizPage = () => {
-  const [quizStatus, setQuizStatus] = useState("start"); // start / game / end
+  const [quizStatus, setQuizStatus] = useState(/* "start" */"end"); // start / game / end
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const { topicItem, difficulty } = useSelector((state) => state.quizData);
@@ -45,12 +46,15 @@ const QuizPage = () => {
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
           questionsList={questionsList.results}
+          setQuizStatus={setQuizStatus}
         />
       ) : (
         ""
       )
+    ) : quizStatus === "end" ? (
+      <QuizEndScreen currentQuestion={currentQuestion} color={color} />
     ) : (
-      "hello game"
+      ""
     );
 
   return (

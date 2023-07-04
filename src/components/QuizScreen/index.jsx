@@ -8,15 +8,41 @@ import {
   Flex,
   Grid,
 } from "@chakra-ui/react";
+import shuffleArr from "../../utils/shuffleArr";
+import AnswerButton from "./AnswerButton";
 
 const QuizScreen = ({
   color,
   currentQuestion,
   setCurrentQuestion,
+  setQuizStatus,
   questionsList,
 }) => {
   const currentQuestionItem = questionsList[currentQuestion];
+  let answers = shuffleArr(
+    currentQuestionItem.incorrect_answers.concat(
+      currentQuestionItem.correct_answer
+    )
+  );
+  //===========================================
   console.log(currentQuestionItem);
+  //===========================================
+
+  const answersElems = answers.map((answer, i) => {
+    return (
+      <AnswerButton
+        key={i}
+        idx={i}
+        color={color}
+        answer={answer}
+        currentQuestionItem={currentQuestionItem}
+        currentQuestion={currentQuestion}
+        setCurrentQuestion={setCurrentQuestion}
+        setQuizStatus={setQuizStatus}
+      />
+    );
+  });
+
   return (
     <Card
       position="relative"
@@ -30,7 +56,7 @@ const QuizScreen = ({
     >
       <Box
         position="absolute"
-        maxWidth='500px'
+        maxWidth="400px"
         top="20px"
         left="0"
         color="white"
@@ -75,6 +101,7 @@ const QuizScreen = ({
             width={((currentQuestion + 1) * 100) / questionsList.length + "%"}
             height="10px"
             backgroundColor={color + ".700"}
+            transition='.2s ease'
           ></Box>
         </Box>
         <Text textAlign="center" fontSize="20px" fontWeight="700">
@@ -90,6 +117,7 @@ const QuizScreen = ({
           height="100%"
         >
           <Box
+            width="90%"
             marginBottom="80px"
             borderRadius="var(--chakra-radii-md)"
             bgColor={color + ".700"}
@@ -101,149 +129,18 @@ const QuizScreen = ({
               fontSize="36px"
               fontWeight="700"
             >
-              {currentQuestionItem.question}
+              {currentQuestionItem.question
+                .replaceAll("&quot;", '"')
+                .replaceAll("&#039;", "'")}
             </Text>
           </Box>
           <Grid
-            gridTemplateColumns="repeat(2, minmax(250px, max-content))"
+            gridTemplateColumns="repeat(2, minmax(0, 1fr))"
             gap="20px"
+            width="90%"
+            margin="0 auto"
           >
-            <Flex
-              gap="15px"
-              alignItems="center"
-              padding="10px 20px"
-              border="3px solid"
-              borderColor={color + ".700"}
-              borderRadius="var(--chakra-radii-md)"
-              color={color + ".700"}
-              boxShadow="lg"
-              cursor="pointer"
-              transition=".2s ease"
-              _hover={{
-                backgroundColor: `${color}.400`,
-                color: "white",
-              }}
-            >
-              <Box
-                fontSize="24px"
-                backgroundColor={color + ".700"}
-                width="40px"
-                height="40px"
-                borderRadius="50%"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-                fontWeight="700"
-              >
-                A
-              </Box>
-              <Text flex="1" fontSize="24px">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </Text>
-            </Flex>
-            <Flex
-              gap="15px"
-              alignItems="center"
-              padding="10px 20px"
-              cursor="pointer"
-              border="3px solid"
-              borderColor={color + ".700"}
-              borderRadius="var(--chakra-radii-md)"
-              color={color + ".700"}
-              boxShadow="lg"
-              transition=".2s ease"
-              _hover={{
-                backgroundColor: `${color}.400`,
-                color: "white",
-              }}
-            >
-              <Box
-                fontSize="24px"
-                backgroundColor={color + ".700"}
-                width="40px"
-                height="40px"
-                borderRadius="50%"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-                fontWeight="700"
-              >
-                B
-              </Box>
-              <Text flex="1" fontSize="24px">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </Text>
-            </Flex>
-            <Flex
-              gap="15px"
-              alignItems="center"
-              padding="10px 20px"
-              cursor="pointer"
-              border="3px solid"
-              borderColor={color + ".700"}
-              borderRadius="var(--chakra-radii-md)"
-              color={color + ".700"}
-              boxShadow="lg"
-              transition=".2s ease"
-              _hover={{
-                backgroundColor: `${color}.400`,
-                color: "white",
-              }}
-            >
-              <Box
-                fontSize="24px"
-                backgroundColor={color + ".700"}
-                width="40px"
-                height="40px"
-                borderRadius="50%"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-                fontWeight="700"
-              >
-                C
-              </Box>
-              <Text flex="1" fontSize="24px">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </Text>
-            </Flex>
-            <Flex
-              gap="15px"
-              alignItems="center"
-              padding="10px 20px"
-              cursor="pointer"
-              border="3px solid"
-              borderColor={color + ".700"}
-              borderRadius="var(--chakra-radii-md)"
-              color={color + ".700"}
-              boxShadow="lg"
-              transition=".2s ease"
-              _hover={{
-                backgroundColor: `${color}.400`,
-                color: "white",
-              }}
-            >
-              <Box
-                fontSize="24px"
-                backgroundColor={color + ".700"}
-                width="40px"
-                height="40px"
-                borderRadius="50%"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-                fontWeight="700"
-              >
-                D
-              </Box>
-              <Text flex="1" fontSize="24px">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </Text>
-            </Flex>
+            {answersElems}
           </Grid>
         </Flex>
       </CardBody>
@@ -254,6 +151,7 @@ const QuizScreen = ({
 QuizScreen.propTypes = {
   color: PropTypes.string,
   currentQuestion: PropTypes.number,
+  setQuizStatus: PropTypes.func,
   setCurrentQuestion: PropTypes.func,
   questionsList: PropTypes.array,
 };
