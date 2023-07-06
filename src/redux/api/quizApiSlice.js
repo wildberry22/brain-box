@@ -19,8 +19,9 @@ export const quizApiSlice = createApi({
           }&type=multiple`,
         };
       },
-      providesTags: ["quiz"],
+      providesTags: ["Quiz"],
     }),
+    
   }),
 });
 

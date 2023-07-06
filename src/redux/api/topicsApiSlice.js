@@ -22,7 +22,16 @@ export const topicsApiSlice = createApi({
         };
       }
     }),
+    getTopicByCategory: builder.query({
+      query: (args) => {
+        const { category } = args || {};
+        return {
+          url: `/data?category=${category}`,
+        };
+      },
+      providesTags: ['topic']
+    })
   }),
 });
 
-export const { useGetTopicsQuery, useGetAllTopicsQuery } = topicsApiSlice;
+export const { useGetTopicsQuery, useGetAllTopicsQuery, useGetTopicByCategoryQuery } = topicsApiSlice;

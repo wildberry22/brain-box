@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
 
 import "./style.css";
+import replaceCER from "../../utils/replaceCER";
 
 const AnswerButton = ({
   color,
@@ -36,9 +37,7 @@ const AnswerButton = ({
     document.querySelectorAll(".answer-button")?.forEach((button) => {
       if (
         button.querySelector(".answer-button__text")?.textContent ===
-        currentQuestionItem.correct_answer
-          .replaceAll("&quot;", '"')
-          .replaceAll("&#039;", "'")
+        replaceCER(currentQuestionItem.correct_answer)
       ) {
         button.classList.remove("initial");
         button.classList.add("correct");
@@ -68,12 +67,7 @@ const AnswerButton = ({
     });
 
     setTimeout(() => {
-      if (
-        answer ===
-        currentQuestionItem.correct_answer
-          .replaceAll("&quot;", '"')
-          .replaceAll("&#039;", "'")
-      ) {
+      if (answer === replaceCER(currentQuestionItem.correct_answer)) {
         correctAnswer();
       } else {
         incorrectAnswer();
@@ -131,7 +125,7 @@ const AnswerButton = ({
           fontSize="24px"
           textAlign="left"
         >
-          {answer.replaceAll("&quot;", '"').replaceAll("&#039;", "'")}
+          {replaceCER(answer)}
         </Text>
       </Flex>
     </Button>

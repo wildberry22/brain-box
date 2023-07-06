@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import shuffleArr from "../../utils/shuffleArr";
 import AnswerButton from "./AnswerButton";
+import replaceCER from "../../utils/replaceCER";
 
 const QuizScreen = ({
   color,
@@ -25,7 +26,11 @@ const QuizScreen = ({
     )
   );
   //===========================================
-  console.log(currentQuestionItem);
+  if (import.meta.env.NODE_ENV !== "production") {
+    console.log(currentQuestionItem);
+  } else {
+    ("");
+  }
   //===========================================
 
   const answersElems = answers.map((answer, i) => {
@@ -101,7 +106,7 @@ const QuizScreen = ({
             width={((currentQuestion + 1) * 100) / questionsList.length + "%"}
             height="10px"
             backgroundColor={color + ".700"}
-            transition='.2s ease'
+            transition=".2s ease"
           ></Box>
         </Box>
         <Text textAlign="center" fontSize="20px" fontWeight="700">
@@ -129,9 +134,7 @@ const QuizScreen = ({
               fontSize="36px"
               fontWeight="700"
             >
-              {currentQuestionItem.question
-                .replaceAll("&quot;", '"')
-                .replaceAll("&#039;", "'")}
+              {replaceCER(currentQuestionItem.question)}
             </Text>
           </Box>
           <Grid

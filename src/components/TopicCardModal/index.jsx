@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   Heading,
@@ -18,7 +18,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import { setQuizData } from "../../redux/slices/quizSlice";
 import RadioCard from "./RadioCard";
 
 // variables for radio buttons
@@ -27,10 +26,9 @@ const difficulty = ["Mixed", "Easy", "Medium", "Hard"];
 const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
   const [currentDifficulty, setCurrentDifficulty] = useState("Mixed");
 
-  const dispatch = useDispatch();
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // function for radio buttons
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -41,13 +39,9 @@ const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
   const group = getRootProps();
 
   const onClickStart = () => {
-    dispatch(
-      setQuizData({
-        topicItem,
-        difficulty: currentDifficulty,
-      })
+    navigate(
+      `/quiz?category=${topicItem.category}&difficulty=${currentDifficulty}`
     );
-    navigate('/quiz')
   };
 
   return (
@@ -113,6 +107,7 @@ const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
         <ModalFooter margin="0 auto" padding="20px 0 0">
           <Button
             colorScheme={color}
+            color="white"
             onClick={onClickStart}
             fontSize="24px"
             padding="25px 45px"

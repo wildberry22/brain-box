@@ -60,6 +60,7 @@ const QuizStartScreen = ({ topicItem, difficulty, color, setQuizStatus }) => {
       <CardFooter>
         <Button
           colorScheme={color}
+          color='white'
           onClick={() => setQuizStatus("game")}
           fontSize="36px"
           padding="32px 60px"

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Flex, Heading, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import QuizStartScreen from "../components/QuizStartScreen";
 import QuizScreen from "../components/QuizScreen";
@@ -10,13 +10,29 @@ import QuizEndScreen from "../components/QuizEndScreen";
 import SkeletonScr from "../components/QuizScreen/SkeletonScr";
 
 import { useGetQuestionsQuery } from "../redux/api/quizApiSlice";
+import { useGetTopicByCategoryQuery } from "../redux/api/topicsApiSlice";
 
 const QuizPage = () => {
-  const [quizStatus, setQuizStatus] = useState(/* "start" */"end"); // start / game / end
+  const [quizStatus, setQuizStatus] = useState("start"); // start / game / end
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const { topicItem, difficulty } = useSelector((state) => state.quizData);
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();
+
+  // request data from url
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const category = searchParams.get("category")
+    ? searchParams.get("category")
+    : "";
+  const difficulty = searchParams.get("difficulty")
+    ? searchParams.get("difficulty")
+    : "Mixed";
+
+  const {
+    data: topicItemApi,
+    isLoading: isLoadingTopic,
+    isSuccess: isSuccessTopic,
+  } = useGetTopicByCategoryQuery({ category });
 
   const {
     data: questionsList,
@@ -24,19 +40,26 @@ const QuizPage = () => {
     isSuccess,
     isError,
     error,
+    refetch,
   } = useGetQuestionsQuery({
-    category: topicItem.category,
+    category,
     difficulty: difficulty.toLowerCase(),
   });
 
   const content =
     quizStatus === "start" ? (
-      <QuizStartScreen
-        topicItem={topicItem}
-        difficulty={difficulty}
-        color={color}
-        setQuizStatus={setQuizStatus}
-      />
+      isLoadingTopic ? (
+        <SkeletonScr />
+      ) : isSuccessTopic ? (
+        <QuizStartScreen
+          topicItem={topicItemApi[0]}
+          difficulty={difficulty}
+          color={color}
+          setQuizStatus={setQuizStatus}
+        />
+      ) : (
+        "Something gone wrong"
+      )
     ) : quizStatus === "game" ? (
       isLoading ? (
         <SkeletonScr />
@@ -49,10 +72,17 @@ const QuizPage = () => {
           setQuizStatus={setQuizStatus}
         />
       ) : (
-        ""
+        "Something gone wrong"
       )
     ) : quizStatus === "end" ? (
-      <QuizEndScreen currentQuestion={currentQuestion} color={color} />
+      <QuizEndScreen
+        currentQuestion={currentQuestion}
+        setCurrentQuestion={setCurrentQuestion}
+        setQuizStatus={setQuizStatus}
+        color={color}
+        refetch={refetch}
+        length={questionsList.results.length}
+      />
     ) : (
       ""
     );

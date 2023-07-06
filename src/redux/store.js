@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import colorReducer from "./slices/colorThemeSlice";
-import quizReducer from "./slices/quizSlice";
 import { topicsApiSlice } from "./api/topicsApiSlice";
 import { quizApiSlice } from "./api/quizApiSlice";
 export const store = configureStore({
   reducer: {
     colorTheme: colorReducer,
-    quizData: quizReducer,
     [topicsApiSlice.reducerPath]: topicsApiSlice.reducer,
     [quizApiSlice.reducerPath]: quizApiSlice.reducer,
   },
