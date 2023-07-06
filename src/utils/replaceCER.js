@@ -6,6 +6,7 @@ const replaceCER = (str) => {
     .replaceAll("&amp;", "&")
     .replaceAll("&ocirc;", "ô")
     .replaceAll("&uuml;", "ü")
+    .replaceAll("&aring;", "å")
     .replaceAll("&eacute;", "É");
 };
 

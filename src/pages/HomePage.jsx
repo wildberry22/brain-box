@@ -1,10 +1,10 @@
 import { Box, Button, Flex, Image, Heading } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import textTitle from "../assets/home-title.png";
 import textBg from "../assets/main-bg.jpg";
-import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();

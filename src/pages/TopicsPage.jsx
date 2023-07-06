@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { Paginate } from "react-paginate-chakra-ui";
 import { Grid, Heading, Flex, Skeleton, Spacer } from "@chakra-ui/react";
 
+import TopicCard from "../components/TopicCard";
+
 import {
   useGetTopicsQuery,
   useGetAllTopicsQuery,
 } from "../redux/api/topicsApiSlice";
-
-import TopicCard from "../components/TopicCard";
 
 const TopicsPage = () => {
   // page & limit variables for pagination and request to server
