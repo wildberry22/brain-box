@@ -53,12 +53,12 @@ const ChangeThemeModal = ({ isOpen, onClose }) => {
   const group = getRootProps();
   // set active color in state when starting
   useEffect(() => {
-    dispatch(setActiveTheme(colorThemeLC))
+    dispatch(setActiveTheme(colorThemeLC));
     // eslint-disable-next-line
-  }, [])
-
+  }, []);
+  /* width={{ base: "150px", sm: "160px", md: "200px" }} */
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", sm: "lg", md: 'xl' }}>
       <ModalOverlay />
       <ModalContent
         border="2px solid"
@@ -78,7 +78,7 @@ const ChangeThemeModal = ({ isOpen, onClose }) => {
           <Text marginBottom="20px">Choose the color scheme you like:</Text>
 
           <RadioGroup>
-            <Grid templateColumns="repeat(2, 1fr)" gap="10px" {...group}>
+            <Grid templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)" }} gap="10px" {...group}>
               {colorScheme.map((value) => {
                 const radio = getRadioProps({ value });
                 return (

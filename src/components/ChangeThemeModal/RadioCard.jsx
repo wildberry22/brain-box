@@ -22,7 +22,8 @@ const RadioCard = (props) => {
         borderWidth="1px"
         borderRadius="md"
         boxShadow="md"
-        padding="20px"
+        padding={{ base: "10px 15px", sm: "20px" }}
+        textAlign={{ base: "center", sm: "left" }}
         fontWeight="700"
         color={props.children.toLowerCase() + ".700"}
         backgroundColor={props.children.toLowerCase() + ".300"}

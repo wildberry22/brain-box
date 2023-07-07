@@ -3,6 +3,7 @@ const replaceCER = (str) => {
     .replaceAll("&quot;", '"')
     .replaceAll("&#039;", "'")
     .replaceAll("&rsquo;", "'")
+    .replaceAll("&shy;", " ")
     .replaceAll("&amp;", "&")
     .replaceAll("&pi;", "π")
     .replaceAll("&oacute;", "ó")
