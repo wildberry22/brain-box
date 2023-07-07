@@ -7,7 +7,7 @@ import TopicsPage from "./pages/TopicsPage";
 import QuizPage from "./pages/QuizPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-import Transition from "./animation/transition";
+import Transition from "./components/animation/Transition";
 
 function App() {
   const location = useLocation();
