@@ -4,10 +4,14 @@ const replaceCER = (str) => {
     .replaceAll("&#039;", "'")
     .replaceAll("&rsquo;", "'")
     .replaceAll("&amp;", "&")
+    .replaceAll("&pi;", "π")
+    .replaceAll("&oacute;", "ó")
     .replaceAll("&ocirc;", "ô")
+    .replaceAll("&Uuml;", "Ü")
     .replaceAll("&uuml;", "ü")
     .replaceAll("&aring;", "å")
-    .replaceAll("&eacute;", "É");
+    .replaceAll("&Eacute;", "É")
+    .replaceAll("&eacute;", "é");
 };
 
 export default replaceCER;

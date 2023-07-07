@@ -13,6 +13,7 @@ const AnswerButton = ({
   setQuizStatus,
   idx,
   answer,
+  setAnimation,
 }) => {
   const [answerButtonState, setAnswerButtonState] = useState("initial"); // initial / clicked / correct / incorrect
 
@@ -26,8 +27,11 @@ const AnswerButton = ({
       if (currentQuestion !== 9) {
         setCurrentQuestion((question) => question + 1);
       } else {
-        setCurrentQuestion((question) => question + 1);
-        setQuizStatus("end");
+        setAnimation((animation) => !animation);
+        setTimeout(() => {
+          setQuizStatus("end");
+          setCurrentQuestion((question) => question + 1);
+        }, 300);
       }
     }, 3000);
   };
@@ -46,7 +50,10 @@ const AnswerButton = ({
           setAnswerButtonState("initial");
           button.classList.add("initial");
           button.classList.remove("correct");
-          setQuizStatus("end");
+          setAnimation((animation) => !animation);
+          setTimeout(() => {
+            setQuizStatus("end");
+          }, 300);
         }, 3000);
       } else {
         setTimeout(() => {
@@ -138,6 +145,7 @@ AnswerButton.propTypes = {
   currentQuestion: PropTypes.number,
   setCurrentQuestion: PropTypes.func,
   setQuizStatus: PropTypes.func,
+  setAnimation: PropTypes.func,
   idx: PropTypes.number,
   answer: PropTypes.string,
 };

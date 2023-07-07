@@ -20,7 +20,7 @@ const Transition = ({ component }) => {
       colorBg = "#48BB78"; //done
       break;
     case "teal":
-      colorBg = "#38B2AC";  //done
+      colorBg = "#38B2AC"; //done
       break;
     case "blue":
       colorBg = "#4299E1"; //done
