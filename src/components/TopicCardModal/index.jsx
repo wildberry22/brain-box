@@ -45,7 +45,11 @@ const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={{ base: "full", sm: "lg", md: "xl" }}
+    >
       <ModalOverlay />
       <ModalContent
         border="2px solid"
@@ -65,6 +69,7 @@ const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
             maxWidth="500px"
             width="100%"
             textAlign="center"
+            fontSize={{ base: "28px", sm: "30px" }}
             color="white"
             position="absolute"
             top="50%"
@@ -88,11 +93,11 @@ const TopicCardModal = ({ isOpen, onClose, topicItem }) => {
           }}
         />
         <ModalBody pt="20px">
-          <Heading fontSize="24px" marginBottom="20px">
+          <Heading fontSize={{ base: "22px", sm: "24px" }} marginBottom="20px">
             Select difficulty:
           </Heading>
           <RadioGroup>
-            <Grid templateColumns="repeat(2, 1fr)" gap="10px" {...group}>
+            <Grid gridTemplateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)" }} gap="10px" {...group}>
               {difficulty.map((value) => {
                 const radio = getRadioProps({ value });
                 return (

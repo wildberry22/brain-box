@@ -41,7 +41,13 @@ const TopicCard = (props) => {
           filter: "brightness(70%) contrast(120%)",
         }}
       >
-        <CardBody position="relative">
+        <CardBody
+          position="relative"
+          display="flex"
+          alignItems="center"
+          justifyContent={{ base: "center", xl: "flex-start" }}
+          padding={{ base: "5px", md: "20px" }}
+        >
           <Text
             display="inline"
             padding="0 10px"
@@ -49,7 +55,8 @@ const TopicCard = (props) => {
             backgroundColor={"rgba(0, 0, 0, 0.7)"}
             color="white"
             fontWeight="700"
-            fontSize="24px"
+            fontSize={{ base: "20px", sm: "22px", md: "24px" }}
+            textAlign="center"
           >
             {topicItem?.title}
           </Text>
