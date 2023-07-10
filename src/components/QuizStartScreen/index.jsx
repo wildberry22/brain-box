@@ -10,9 +10,13 @@ import {
   Button,
   Text,
   Box,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 const QuizStartScreen = ({ topicItem, difficulty, color, setQuizStatus }) => {
+  const [scrH700] = useMediaQuery("(max-height: 700px)");
+  const [animation, setAnimation] = useState(false);
+
   let difficultyColor = color;
   switch (difficulty) {
     case "Mixed":
@@ -31,8 +35,6 @@ const QuizStartScreen = ({ topicItem, difficulty, color, setQuizStatus }) => {
       difficultyColor = color;
       break;
   }
-
-  const [animation, setAnimation] = useState(false);
 
   return (
     <Box
@@ -56,18 +58,34 @@ const QuizStartScreen = ({ topicItem, difficulty, color, setQuizStatus }) => {
         border="5px solid"
         borderColor={color + ".700"}
       >
-        <CardHeader maxWidth="90%">
+        <CardHeader
+          maxWidth="90%"
+          padding={{
+            base: "10px 10px 0 10px",
+            sm: "1.25rem 1.25rem 0 1.25rem",
+            md: "1.25rem",
+          }}
+        >
           <Heading
             as="h1"
-            fontSize="80px"
+            fontSize={{ base: "38px", sm: "52px", md: "80px" }}
+            lineHeight={{ base: "1.2", md: "1.33" }}
             textAlign="center"
             color={color + ".700"}
           >
             {topicItem.title}
           </Heading>
         </CardHeader>
-        <CardBody flex="0" marginBottom="40px">
-          <Heading fontSize="46px">
+        <CardBody
+          flex="0"
+          marginBottom={
+            scrH700 ? { base: "0px", md: "10px" } : { base: "0px", md: "40px" }
+          }
+        >
+          <Heading
+            fontSize={{ base: "28px", sm: "36px", md: "46px" }}
+            lineHeight={{ base: "1.2", md: "1.33" }}
+          >
             Difficulty:{" "}
             <Text as="span" color={difficultyColor}>
               {difficulty}
@@ -77,15 +95,15 @@ const QuizStartScreen = ({ topicItem, difficulty, color, setQuizStatus }) => {
         <CardFooter>
           <Button
             colorScheme={color}
-            color="white"
             onClick={() => {
               setAnimation(!animation);
               setTimeout(() => {
                 setQuizStatus("game");
               }, 300);
             }}
-            fontSize="36px"
-            padding="32px 60px"
+            color="white"
+            fontSize={{ base: "28px", sm: "32px", md: "36px" }}
+            padding={{ base: "25px 50px", sm: "30px 50px", md: "32px 60px" }}
             variant="solid"
           >
             Start

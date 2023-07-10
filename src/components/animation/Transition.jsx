@@ -80,7 +80,7 @@ const Transition = ({ component }) => {
 };
 
 Transition.propTypes = {
-  component: PropTypes.func,
+  component: () => {},
 };
 
 export default Transition;

@@ -87,7 +87,7 @@ const AnswerButton = ({
       className={`answer-button ${answerButtonState}`}
       width="100%"
       height="auto"
-      padding="10px 20px"
+      padding={{ base: "10px", md: "10px 20px" }}
       border="3px solid"
       borderColor={color + ".700"}
       borderRadius="var(--chakra-radii-md)"
@@ -101,13 +101,13 @@ const AnswerButton = ({
         color: "white",
       }}
     >
-      <Flex gap="15px" width="100%" alignItems="center">
+      <Flex gap={{ base: "10px", md: "15px" }} width="100%" alignItems="center">
         <Box
           className="answer-button__letter"
-          fontSize="24px"
+          fontSize={{ base: "20px", md: "24px" }}
           backgroundColor={color + ".700"}
-          width="40px"
-          height="40px"
+          width={{ base: "30px", md: "40px" }}
+          height={{ base: "30px", md: "40px" }}
           borderRadius="50%"
           display="flex"
           justifyContent="center"
@@ -129,7 +129,7 @@ const AnswerButton = ({
           className="answer-button__text"
           whiteSpace="wrap"
           flex="1"
-          fontSize="24px"
+          fontSize={{ base: "22px", md: "24px" }}
           textAlign="left"
         >
           {replaceCER(answer)}

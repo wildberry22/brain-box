@@ -12,5 +12,5 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(topicsApiSlice.middleware)
       .concat(quizApiSlice.middleware),
-  devTools: import.meta.env.NODE_ENV !== "production",
+  devTools: !import.meta.env.PROD,
 });

@@ -50,7 +50,7 @@ const QuizPage = () => {
     return (
       <Flex
         flexDirection="column"
-        height="calc(100vh - 150px)"
+        height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
         marginTop="40px"
         justifyContent="center"
         alignItems="center"
@@ -133,7 +133,7 @@ const QuizPage = () => {
   return (
     <Flex
       flexDirection="column"
-      height="calc(100vh - 170px)"
+      height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
       marginTop="40px"
       justifyContent="center"
       alignItems="center"

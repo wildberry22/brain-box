@@ -13,6 +13,7 @@ import {
   Button,
   Text,
   Flex,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 import "./style.css";
@@ -26,6 +27,8 @@ const QuizEndScreen = ({
   length,
 }) => {
   const [animation, setAnimation] = useState(false);
+  const [scrH750] = useMediaQuery("(max-height: 750px)");
+  const [scrW700] = useMediaQuery("(min-wight: 700px)");
 
   const text =
     currentQuestion <= length / 3
@@ -68,8 +71,20 @@ const QuizEndScreen = ({
         border="5px solid"
         borderColor={color + ".700"}
       >
-        <CardHeader maxWidth="90%" textAlign="center">
-          <Heading fontSize="80px" color="black">
+        <CardHeader
+          maxWidth={{ base: "100%", md: "90%" }}
+          textAlign="center"
+          padding={{
+            base: "10px 10px 0 10px",
+            sm: "1.25rem 1.25rem 0 1.25rem",
+            md: "1.25rem",
+          }}
+        >
+          <Heading
+            fontSize={{ base: "36px", sm: "42px", md: "60px", lg: "80px" }}
+            lineHeight={{ base: "1.2", md: "1.33" }}
+            color="black"
+          >
             Number of points:{" "}
             <Text
               as="span"
@@ -86,12 +101,12 @@ const QuizEndScreen = ({
         </CardHeader>
         <CardBody
           flex="0"
-          marginBottom="40px"
+          marginBottom={!(scrH750 && scrW700) ? { base: 0, lg: "40px" } : "0"}
           textAlign="center"
-          maxWidth="90%"
+          maxWidth={{ base: "100%", md: "90%" }}
         >
           <Text
-            fontSize="46px"
+            fontSize={{ base: "24px", sm: "32px", md: "38px", lg: "46px" }}
             fontWeight="700"
             color={numColor}
             animation={
@@ -104,21 +119,27 @@ const QuizEndScreen = ({
           </Text>
         </CardBody>
         <CardFooter>
-          <Flex flexDirection="column" gap="40px">
+          <Flex
+            flexDirection={!(scrH750 && scrW700) ? "column" : "row"}
+            gap={{ base: "20px", lg: "40px" }}
+          >
             {currentQuestion < length && (
               <Button
                 variant="outline"
                 colorScheme={color}
                 margin="0 auto"
                 size="lg"
-                fontSize="40px"
-                padding="35px 50px 35px 40px"
+                fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+                padding={{
+                  base: "25px 30px 25px 30px",
+                  lg: "35px 40px 35px 40px",
+                }}
                 _active={{
                   transform: "scale(0.98)",
                 }}
                 onClick={() => {
                   refetch();
-                  setAnimation(!animation)
+                  setAnimation(!animation);
                   setTimeout(() => {
                     setCurrentQuestion(0);
                     setQuizStatus("start");
@@ -134,8 +155,11 @@ const QuizEndScreen = ({
                 colorScheme={color}
                 margin="0 auto"
                 size="lg"
-                fontSize="40px"
-                padding="35px 50px 35px 40px"
+                fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+                padding={{
+                  base: "25px 40px 25px 30px",
+                  lg: "35px 50px 35px 40px",
+                }}
                 color={color + ".50"}
                 _active={{
                   transform: "scale(0.98)",

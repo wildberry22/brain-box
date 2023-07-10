@@ -9,6 +9,7 @@ import {
   CardBody,
   Flex,
   Grid,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 import shuffleArr from "../../utils/shuffleArr";
@@ -23,6 +24,7 @@ const QuizScreen = ({
   questionsList,
 }) => {
   const [animation, setAnimation] = useState(false);
+  const [scrH750] = useMediaQuery("(max-height: 750px)");
 
   const currentQuestionItem = questionsList[currentQuestion];
   let answers = shuffleArr(
@@ -31,10 +33,8 @@ const QuizScreen = ({
     )
   );
   //===========================================
-  if (import.meta.env.NODE_ENV !== "production") {
+  if (!import.meta.env.PROD) {
     console.log(currentQuestionItem);
-  } else {
-    ("");
   }
   //===========================================
 
@@ -79,30 +79,34 @@ const QuizScreen = ({
       >
         <Box
           position="absolute"
-          maxWidth="400px"
-          top="20px"
+          maxWidth={{ base: "max-content", sm: "270px", lg: "400px" }}
+          marginRight={{ base: "10px", sm: "0" }}
+          top={{ base: "15px", sm: "10px", lg: "20px" }}
           left="0"
           color="white"
-          padding="5px 20px"
+          padding={{ base: "5px", sm: "5px 20px" }}
           backgroundColor={color + ".700"}
           borderRadius="var(--chakra-radii-md)"
           borderTopLeftRadius="0"
           borderBottomLeftRadius="0"
-          fontSize="24px"
+          fontSize={{ base: "16px", sm: "20px", lg: "24px" }}
         >
           {currentQuestionItem.category}
         </Box>
         <Box
           position="absolute"
-          top="20px"
-          right="0"
+          top={{ base: "54px", sm: "10px", lg: "20px" }}
+          right={{ base: "auto", sm: "0" }}
+          left={{ base: "0", sm: "auto" }}
           color="white"
-          padding="5px 20px"
+          padding={{ base: "5px", sm: "5px 20px" }}
           backgroundColor={color + ".700"}
           borderRadius="var(--chakra-radii-md)"
-          borderTopRightRadius="0"
-          borderBottomRightRadius="0"
-          fontSize="24px"
+          borderTopRightRadius={{ base: "var(--chakra-radii-md)", sm: "0" }}
+          borderBottomRightRadius={{ base: "var(--chakra-radii-md)", sm: "0" }}
+          borderTopLeftRadius={{ base: "0", sm: "var(--chakra-radii-md)" }}
+          borderBottomLeftRadius={{ base: "0", sm: "var(--chakra-radii-md)" }}
+          fontSize={{ base: "16px", sm: "20px", lg: "24px" }}
         >
           {currentQuestionItem.difficulty}
         </Box>
@@ -118,7 +122,7 @@ const QuizScreen = ({
             width="100%"
             height="10px"
             backgroundColor={color + ".100"}
-            marginBottom="20px"
+            marginBottom={{ base: "0", md: "5px", lg: "20px" }}
           >
             <Box
               width={((currentQuestion + 1) * 100) / questionsList.length + "%"}
@@ -127,12 +131,21 @@ const QuizScreen = ({
               transition=".2s ease"
             ></Box>
           </Box>
-          <Text textAlign="center" fontSize="20px" fontWeight="700">
+          <Text
+            textAlign="center"
+            fontSize={{ base: "18px", md: "20px" }}
+            fontWeight="700"
+            marginTop={{ base: "-44px", md: "0px" }}
+          >
             Question <Text as="span">{currentQuestion + 1}</Text>/
             {questionsList.length}
           </Text>
         </CardHeader>
-        <CardBody width="100%" marginTop="40px">
+        <CardBody
+          width="100%"
+          marginTop={{ base: "80px", sm: "40px" }}
+          padding={{ base: "10px", sm: "1rem", md: "1.25rem" }}
+        >
           <Flex
             flexDirection="column"
             justifyContent="center"
@@ -140,25 +153,34 @@ const QuizScreen = ({
             height="100%"
           >
             <Box
-              width="90%"
-              marginBottom="80px"
+              width={{ base: "100%", lg: "90%" }}
+              marginBottom={
+                !scrH750 ? { base: "40px", sm: "60px", lg: "80px" } : "20px"
+              }
               borderRadius="var(--chakra-radii-md)"
               bgColor={color + ".700"}
-              padding="30px 50px"
+              padding={
+                !scrH750
+                  ? { base: "10px", md: "20px 40px", lg: "30px 50px" }
+                  : "10px"
+              }
             >
               <Text
                 textAlign="center"
                 color={color + ".50"}
-                fontSize="36px"
+                fontSize={{ base: "24px", sm: "28px", md: "36px" }}
                 fontWeight="700"
               >
                 {replaceCER(currentQuestionItem.question)}
               </Text>
             </Box>
             <Grid
-              gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-              gap="20px"
-              width="90%"
+              gridTemplateColumns={{
+                base: "1fr",
+                sm: "repeat(2, minmax(0, 1fr))",
+              }}
+              gap={{ base: "5px", md: "20px" }}
+              width={{ base: "100%", lg: "90%" }}
               margin="0 auto"
             >
               {answersElems}
