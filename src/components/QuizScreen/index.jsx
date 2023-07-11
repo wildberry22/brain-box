@@ -25,6 +25,7 @@ const QuizScreen = ({
 }) => {
   const [animation, setAnimation] = useState(false);
   const [scrH750] = useMediaQuery("(max-height: 750px)");
+  const [scrW480] = useMediaQuery("(max-width: 480px)");
 
   const currentQuestionItem = questionsList[currentQuestion];
   let answers = shuffleArr(
@@ -92,8 +93,16 @@ const QuizScreen = ({
           fontSize={{ base: "16px", sm: "20px", lg: "24px" }}
         >
           {currentQuestionItem.category}
+          {scrW480 ? (
+            <Box borderTop="2px solid" borderColor={color + ".800"}>
+              {currentQuestionItem.difficulty}
+            </Box>
+          ) : (
+            ""
+          )}
         </Box>
         <Box
+          display={{ base: "none", sm: "block" }}
           position="absolute"
           top={{ base: "54px", sm: "10px", lg: "20px" }}
           right={{ base: "auto", sm: "0" }}

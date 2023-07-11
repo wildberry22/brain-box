@@ -126,7 +126,7 @@ const TopicsPage = () => {
             <Heading
               textAlign="center"
               marginTop="20px"
-              fontSize="46px"
+              fontSize={{ base: "28px", sm: "36px", md: "46px" }}
               maxWidth="800px"
               margin="0 auto"
               color="red.500"
@@ -158,7 +158,7 @@ const TopicsPage = () => {
           <Heading
             textAlign="center"
             marginTop="20px"
-            fontSize="46px"
+            fontSize={{ base: "28px", sm: "36px", md: "46px" }}
             maxWidth="800px"
             margin="0 auto"
             color="red.500"

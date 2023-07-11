@@ -32,6 +32,7 @@ const QuizPage = () => {
     data: topicItemApi,
     isLoading: isLoadingTopic,
     isSuccess: isSuccessTopic,
+    isError: isErrorTopic,
   } = useGetTopicByCategoryQuery({ category });
 
   const {
@@ -46,7 +47,7 @@ const QuizPage = () => {
     difficulty: difficulty.toLowerCase(),
   });
 
-  if (isError || questionsList?.results?.length === 0) {
+  if (isError || isErrorTopic || questionsList?.results?.length === 0) {
     return (
       <Flex
         flexDirection="column"
@@ -58,30 +59,33 @@ const QuizPage = () => {
         <Heading
           textAlign="center"
           marginTop="20px"
-          fontSize="46px"
+          fontSize={{ base: "28px", sm: "36px", md: "46px" }}
           maxWidth="800px"
           margin="0 auto"
           color={color + ".800"}
-          marginBottom="80px"
+          marginBottom={{ base: "40px", sm: "60px", md: "80px" }}
         >
           {questionsList?.results?.length === 0
             ? "Oops... Looks like we don't have questions with this topic or this level of difficulty. Try choosing a different difficulty level or topic!"
             : "Oops... Looks like we have some problems. Try again later!"}
         </Heading>
-        <Link to="/" style={{ margin: "0 auto" }}>
+        <Link to="/topics" style={{ margin: "0 auto" }}>
           <Button
             leftIcon={<ArrowBackIcon />}
             colorScheme={color}
             margin="0 auto"
             size="lg"
-            fontSize="40px"
-            padding="35px 50px 35px 40px"
+            fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+            padding={{
+              base: "25px 40px 25px 30px",
+              lg: "35px 50px 35px 40px",
+            }}
             color={color + ".50"}
             _active={{
               transform: "scale(0.98)",
             }}
           >
-            Go to Home
+            Go to Topics
           </Button>
         </Link>
         {console.log(error)}
@@ -93,7 +97,7 @@ const QuizPage = () => {
     quizStatus === "start" ? (
       isLoadingTopic ? (
         <SkeletonScr />
-      ) : isSuccessTopic ? (
+      ) : isSuccessTopic && topicItemApi.length !== 0 ? (
         <QuizStartScreen
           topicItem={topicItemApi[0]}
           difficulty={difficulty}
@@ -138,42 +142,7 @@ const QuizPage = () => {
       justifyContent="center"
       alignItems="center"
     >
-      {!isError && questionsList?.results?.length !== 0 ? (
-        content
-      ) : (
-        <>
-          <Heading
-            textAlign="center"
-            marginTop="20px"
-            fontSize="46px"
-            maxWidth="800px"
-            margin="0 auto"
-            color={color + ".800"}
-            marginBottom="80px"
-          >
-            {questionsList.results.length === 0
-              ? "Oops... Looks like we don't have questions with this topic or this level of difficulty. Try choosing a different difficulty level or topic!"
-              : "Oops... Looks like we have some problems. Try again later!"}
-          </Heading>
-          <Link to="/" style={{ margin: "0 auto" }}>
-            <Button
-              leftIcon={<ArrowBackIcon />}
-              colorScheme={color}
-              margin="0 auto"
-              size="lg"
-              fontSize="40px"
-              padding="35px 50px 35px 40px"
-              color={color + ".50"}
-              _active={{
-                transform: "scale(0.98)",
-              }}
-            >
-              Go to Home
-            </Button>
-          </Link>
-          {console.log(error)}
-        </>
-      )}
+      {content}
     </Flex>
   );
 };

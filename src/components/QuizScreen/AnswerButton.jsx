@@ -4,6 +4,7 @@ import { Box, Text, Flex, Button } from "@chakra-ui/react";
 
 import "./style.css";
 import replaceCER from "../../utils/replaceCER";
+import isTouchDevice from "../../utils/isTouchDevice";
 
 const AnswerButton = ({
   color,
@@ -16,6 +17,8 @@ const AnswerButton = ({
   setAnimation,
 }) => {
   const [answerButtonState, setAnswerButtonState] = useState("initial"); // initial / clicked / correct / incorrect
+
+  const isTouch = isTouchDevice();
 
   const correctAnswer = () => {
     setAnswerButtonState("correct");
@@ -96,10 +99,14 @@ const AnswerButton = ({
       boxShadow="lg"
       cursor="pointer"
       color={color + ".700"}
-      _hover={{
-        backgroundColor: `${color}.400`,
-        color: "white",
-      }}
+      _hover={
+        !isTouch
+          ? {
+              backgroundColor: `${color}.400`,
+              color: "white",
+            }
+          : {}
+      }
     >
       <Flex gap={{ base: "10px", md: "15px" }} width="100%" alignItems="center">
         <Box
