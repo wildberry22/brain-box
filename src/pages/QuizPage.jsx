@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Flex, Heading, Button } from "@chakra-ui/react";
@@ -49,47 +50,56 @@ const QuizPage = () => {
 
   if (isError || isErrorTopic || questionsList?.results?.length === 0) {
     return (
-      <Flex
-        flexDirection="column"
-        height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
-        marginTop="40px"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Heading
-          textAlign="center"
-          marginTop="20px"
-          fontSize={{ base: "28px", sm: "36px", md: "46px" }}
-          maxWidth="800px"
-          margin="0 auto"
-          color={color + ".800"}
-          marginBottom={{ base: "40px", sm: "60px", md: "80px" }}
+      <>
+        <Helmet>
+          <meta
+            name="description"
+            content={`BrainBox. Page with quiz. Category: ${category}. Difficulty: ${difficulty}`}
+          />
+          <title>{`BrainBox - Quiz`}</title>
+        </Helmet>
+        <Flex
+          flexDirection="column"
+          height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
+          marginTop="40px"
+          justifyContent="center"
+          alignItems="center"
         >
-          {questionsList?.results?.length === 0
-            ? "Oops... Looks like we don't have questions with this topic or this level of difficulty. Try choosing a different difficulty level or topic!"
-            : "Oops... Looks like we have some problems. Try again later!"}
-        </Heading>
-        <Link to="/topics" style={{ margin: "0 auto" }}>
-          <Button
-            leftIcon={<ArrowBackIcon />}
-            colorScheme={color}
+          <Heading
+            textAlign="center"
+            marginTop="20px"
+            fontSize={{ base: "28px", sm: "36px", md: "46px" }}
+            maxWidth="800px"
             margin="0 auto"
-            size="lg"
-            fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
-            padding={{
-              base: "25px 40px 25px 30px",
-              lg: "35px 50px 35px 40px",
-            }}
-            color={color + ".50"}
-            _active={{
-              transform: "scale(0.98)",
-            }}
+            color={color + ".800"}
+            marginBottom={{ base: "40px", sm: "60px", md: "80px" }}
           >
-            Go to Topics
-          </Button>
-        </Link>
-        {console.log(error)}
-      </Flex>
+            {questionsList?.results?.length === 0
+              ? "Oops... Looks like we don't have questions with this topic or this level of difficulty. Try choosing a different difficulty level or topic!"
+              : "Oops... Looks like we have some problems. Try again later!"}
+          </Heading>
+          <Link to="/topics" style={{ margin: "0 auto" }}>
+            <Button
+              leftIcon={<ArrowBackIcon />}
+              colorScheme={color}
+              margin="0 auto"
+              size="lg"
+              fontSize={{ base: "24px", sm: "28px", lg: "40px" }}
+              padding={{
+                base: "25px 40px 25px 30px",
+                lg: "35px 50px 35px 40px",
+              }}
+              color={color + ".50"}
+              _active={{
+                transform: "scale(0.98)",
+              }}
+            >
+              Go to Topics
+            </Button>
+          </Link>
+          {console.log(error)}
+        </Flex>
+      </>
     );
   }
 
@@ -135,15 +145,24 @@ const QuizPage = () => {
     );
 
   return (
-    <Flex
-      flexDirection="column"
-      height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
-      marginTop="40px"
-      justifyContent="center"
-      alignItems="center"
-    >
-      {content}
-    </Flex>
+    <>
+      <Helmet>
+        <meta
+          name="description"
+          content={`BrainBox. Page with quiz. Category: ${category}. Difficulty: ${difficulty}`}
+        />
+        <title>{`BrainBox - Quiz | ${category} - ${difficulty}`}</title>
+      </Helmet>
+      <Flex
+        flexDirection="column"
+        height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
+        marginTop="40px"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {content}
+      </Flex>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Paginate } from "react-paginate-chakra-ui";
@@ -101,28 +102,69 @@ const TopicsPage = () => {
   const color = useSelector((state) => state.colorTheme.color).toLowerCase();
 
   return (
-    <Flex
-      marginTop={!isError ? { base: '30px', sm: "40px"} : { base: '-30px', sm: "-40px"}}
-      flexDirection="column"
-      height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)"}}
-      justifyContent={isError ? "center" : "flex-start"}
-      position="relative"
-    >
-      {!isError ? (
-        <>
-          <Heading
-            as="h2"
-            maxWidth={{ base: "350px", sm: "initial" }}
-            marginRight={{ base: "auto", sm: "0" }}
-            marginLeft={{ base: "auto", sm: "0" }}
-            marginBottom={{ base: "20px", sm: "30px", md: "40px" }}
-            textAlign="center"
-            fontSize={{ base: "28px", sm: "36px", md: "46px" }}
-            lineHeight={{ base: "1.2", md: "1.33" }}
-          >
-            Choose the topic you want to play:
-          </Heading>
-          {topicsList?.length === 0 && (
+    <>
+      <Helmet>
+        <meta name="description" content="BrainBox. Page with list of topics" />
+        <title>BrainBox - Topics</title>
+      </Helmet>
+      <Flex
+        marginTop={
+          !isError
+            ? { base: "30px", sm: "40px" }
+            : { base: "-30px", sm: "-40px" }
+        }
+        flexDirection="column"
+        height={{ base: "calc(100vh - 110px)", sm: "calc(100vh - 150px)" }}
+        justifyContent={isError ? "center" : "flex-start"}
+        position="relative"
+      >
+        {!isError ? (
+          <>
+            <Heading
+              as="h2"
+              maxWidth={{ base: "350px", sm: "initial" }}
+              marginRight={{ base: "auto", sm: "0" }}
+              marginLeft={{ base: "auto", sm: "0" }}
+              marginBottom={{ base: "20px", sm: "30px", md: "40px" }}
+              textAlign="center"
+              fontSize={{ base: "28px", sm: "36px", md: "46px" }}
+              lineHeight={{ base: "1.2", md: "1.33" }}
+            >
+              Choose the topic you want to play:
+            </Heading>
+            {topicsList?.length === 0 && (
+              <Heading
+                textAlign="center"
+                marginTop="20px"
+                fontSize={{ base: "28px", sm: "36px", md: "46px" }}
+                maxWidth="800px"
+                margin="0 auto"
+                color="red.500"
+              >
+                Oops... Looks like we lost data. <br /> Try again later!
+              </Heading>
+            )}
+            <Content
+              limit={limit}
+              topicsList={topicsList}
+              isFetching={isFetching}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+            />
+            <Spacer />
+            {isSuccessAll && topicsList?.length !== 0 && (
+              <Paginate
+                page={page}
+                count={fullTopicsList.length}
+                pageSize={limit}
+                onPageChange={handlePageClick}
+                colorScheme={color}
+                shadow="md"
+              />
+            )}
+          </>
+        ) : (
+          <>
             <Heading
               textAlign="center"
               marginTop="20px"
@@ -131,44 +173,13 @@ const TopicsPage = () => {
               margin="0 auto"
               color="red.500"
             >
-              Oops... Looks like we lost data. <br /> Try again later!
+              Oops... Looks like we have some problems. Try again later!
             </Heading>
-          )}
-          <Content
-            limit={limit}
-            topicsList={topicsList}
-            isFetching={isFetching}
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-          />
-          <Spacer />
-          {isSuccessAll && topicsList?.length !== 0 && (
-            <Paginate
-              page={page}
-              count={fullTopicsList.length}
-              pageSize={limit}
-              onPageChange={handlePageClick}
-              colorScheme={color}
-              shadow="md"
-            />
-          )}
-        </>
-      ) : (
-        <>
-          <Heading
-            textAlign="center"
-            marginTop="20px"
-            fontSize={{ base: "28px", sm: "36px", md: "46px" }}
-            maxWidth="800px"
-            margin="0 auto"
-            color="red.500"
-          >
-            Oops... Looks like we have some problems. Try again later!
-          </Heading>
-          {console.log(error)}
-        </>
-      )}
-    </Flex>
+            {console.log(error)}
+          </>
+        )}
+      </Flex>
+    </>
   );
 };
 
